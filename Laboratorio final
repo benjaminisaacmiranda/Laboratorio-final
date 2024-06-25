@@ -1,0 +1,239 @@
+//Laboratorio Final: Luis Bustamante, Raul Leon, Benjamin Miranda, Aaron Orellana
+package com.mycompany.laboratorio;
+import java.util.*;
+public class Laboratorio {
+    private List<String> libros = new LinkedList<>();
+    private List<String> autores = new LinkedList<>();
+    private List<String> categorias = new LinkedList<>();
+    private Queue<String> prestamos = new LinkedList<>();
+    public static void main(String[] args) {
+        Laboratorio biblioteca = new Laboratorio();
+        biblioteca.mostrarMenu();
+    }
+    public void mostrarMenu() {
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            System.out.println("Seleccione una opción:");
+            System.out.println("Opcion 1: Gestion de categorias");
+            System.out.println("Opcion 2: Gestion de autores");
+            System.out.println("Opcion 3: Gestion de libros");
+            System.out.println("Opcion 4: Prestamo de libros");
+            System.out.println("Opcion 5: Salir");
+            int opcion = sc.nextInt();
+            sc.nextLine();
+            switch (opcion) {
+                case 1:
+                    System.out.println("Opcion 1: Crear categoria");
+                    System.out.println("Opcion 2: Editar categoria");
+                    System.out.println("Opcion 3: Eliminar categoria");
+                    System.out.println("Opcion 4: Mostrar categorias");
+                    int opcionCategoria = sc.nextInt();
+                    sc.nextLine();
+                    switch (opcionCategoria) {
+                        case 1:
+                            System.out.println("Por favor, ingrese el nombre de la categoria:");
+                            String nombreCategoria = sc.nextLine();
+                            agregarCategoria(nombreCategoria);
+                            break;
+                        case 2:
+                            System.out.println("Ingrese el nombre actual de la categoria:");
+                            String nombreActualCat = sc.nextLine();
+                            System.out.println("Ingrese el nuevo nombre de la categoria:");
+                            String nombreNuevoCat = sc.nextLine();
+                            editarCategoria(nombreActualCat, nombreNuevoCat);
+                            break;
+                        case 3:
+                            System.out.println("Ingrese el nombre de la categoria que desea eliminar:");
+                            String nombreCatEliminar = sc.nextLine();
+                            eliminarCategoria(nombreCatEliminar);
+                            break;
+                        case 4:
+                            mostrarCategorias();
+                            break;
+                        default:
+                            System.out.println("Opcion invalida");
+                            break;
+                    }
+                    break;
+                case 2:
+                    System.out.println("Opcion 1: Crear autor");
+                    System.out.println("Opcion 2: Editar autor");
+                    System.out.println("Opcion 3: Eliminar autor");
+                    System.out.println("Opcion 4: Mostrar autores");
+                    int opcionAutor = sc.nextInt();
+                    sc.nextLine();
+                    switch (opcionAutor) {
+                        case 1:
+                            System.out.println("Ingrese el nombre del autor:");
+                            String nombreAutor = sc.nextLine();
+                            agregarAutor(nombreAutor);
+                            break;
+                        case 2:
+                            System.out.println("Ingrese el nombre actual del autor:");
+                            String nombreActualAutor = sc.nextLine();
+                            System.out.println("Ingrese el nuevo nombre del autor:");
+                            String nombreNuevoAutor = sc.nextLine();
+                            editarAutor(nombreActualAutor, nombreNuevoAutor);
+                            break;
+                        case 3:
+                            System.out.println("Ingrese el nombre del autor a eliminar:");
+                            String nombreAutorEliminar = sc.nextLine();
+                            eliminarAutor(nombreAutorEliminar);
+                            break;
+                        case 4:
+                            mostrarAutores();
+                            break;
+                        default:
+                            System.out.println("Opción invalida.");
+                            break;
+                    }
+                    break;
+                case 3:
+                    System.out.println("Opcion 1: Crear libro");
+                    System.out.println("Opcion 2: Editar libro");
+                    System.out.println("Opcion 3: Eliminar libro");
+                    System.out.println("Opcion 4: Mostrar libros");
+                    int opcionLibro = sc.nextInt();
+                    sc.nextLine(); 
+                    switch (opcionLibro) {
+                        case 1:
+                            System.out.println("Ingrese el titulo del libro:");
+                            String tituloLibro = sc.nextLine();
+                            System.out.println("Ingrese el nombre del autor:");
+                            String nombreAutorLibro = sc.nextLine();
+                            System.out.println("Ingrese el nombre de la categoria:");
+                            String nombreCategoriaLibro = sc.nextLine();
+                            agregarLibro(tituloLibro, nombreAutorLibro, nombreCategoriaLibro);
+                            break;
+                        case 2:
+                            System.out.println("Ingrese el titulo actual del libro:");
+                            String tituloActualLibro = sc.nextLine();
+                            System.out.println("Ingrese el nuevo titulo del libro:");
+                            String nuevoTituloLibro = sc.nextLine();
+                            editarLibro(tituloActualLibro, nuevoTituloLibro);
+                            break;
+                        case 3:
+                            System.out.println("Ingrese el titulo del libro a eliminar:");
+                            String tituloLibroEliminar = sc.nextLine();
+                            eliminarLibro(tituloLibroEliminar);
+                            break;
+                        case 4:
+                            mostrarLibros();
+                            break;
+                        default:
+                            System.out.println("Opción invaldia.");
+                            break;
+                    }
+                    break;
+                case 4:
+                    System.out.println("Opcion 1: Mostrar libros prestados");
+                    System.out.println("Opcion 2: Mostrar libros disponibles");
+                    System.out.println("Opcion 3:Prestar libro");
+                    System.out.println("Opcion 4:Devolver libro");
+                    int opcionPrestamo = sc.nextInt();
+                    sc.nextLine();
+                    switch (opcionPrestamo) {
+                        case 1:
+                            mostrarLibrosPrestados();
+                            break;
+                        case 2:
+                            mostrarLibrosDisponibles();
+                            break;
+                        case 3:
+                            System.out.println("Ingrese el titulo del libro a prestar:");
+                            String tituloPrestar = sc.nextLine();
+                            prestarLibro(tituloPrestar);
+                            break;
+                        case 4:
+                            System.out.println("Ingrese el titulo del libro a devolver:");
+                            String tituloDevolver = sc.nextLine();
+                            devolverLibro(tituloDevolver);
+                            break;
+                        default:
+                            System.out.println("Opcion invalida");
+                            break;
+                    }
+                    break;
+                case 5:
+                    System.out.println("Saliendo del programa");
+                    return;
+                default:
+                    System.out.println("Opción invalida");
+                    break;
+            }
+        }
+    }
+    public void agregarCategoria(String nombre) {
+        categorias.add(nombre);
+    }
+    public void editarCategoria(String nombreActual, String nuevoNombre) {
+        int index = categorias.indexOf(nombreActual);
+        if (index != -1) {
+            categorias.set(index, nuevoNombre);
+        }
+    }
+    public void eliminarCategoria(String nombre) {
+        categorias.remove(nombre);
+    }
+    public void mostrarCategorias() {
+        for (String categoria : categorias) {
+            System.out.println(categoria);
+        }
+    }
+    public void agregarAutor(String nombre) {
+        autores.add(nombre);
+    }
+    public void editarAutor(String nombreActual, String nuevoNombre) {
+        int index = autores.indexOf(nombreActual);
+        if (index != -1) {
+            autores.set(index, nuevoNombre);
+        }
+    }
+    public void eliminarAutor(String nombre) {
+        autores.remove(nombre);
+    }
+    public void mostrarAutores() {
+        for (String autor : autores) {
+            System.out.println(autor);
+        }
+    }
+    public void agregarLibro(String titulo, String autor, String categoria) {
+        if (autores.contains(autor) && categorias.contains(categoria)) {
+            libros.add(titulo);
+        }
+    }
+    public void editarLibro(String tituloActual, String nuevoTitulo) {
+        int index = libros.indexOf(tituloActual);
+        if (index != -1) {
+            libros.set(index, nuevoTitulo);
+        }
+    }
+    public void eliminarLibro(String titulo) {
+        libros.remove(titulo);
+    }
+    public void mostrarLibros() {
+        for (String libro : libros) {
+            System.out.println(libro);
+        }
+    }
+    public void prestarLibro(String titulo) {
+        if (libros.contains(titulo) && !prestamos.contains(titulo)) {
+            prestamos.add(titulo);
+        }
+    }
+    public void devolverLibro(String titulo) {
+        prestamos.remove(titulo);
+    }
+    public void mostrarLibrosPrestados() {
+        for (String prestamo : prestamos) {
+            System.out.println(prestamo);
+        }
+    }
+    public void mostrarLibrosDisponibles() {
+        for (String libro : libros) {
+            if (!prestamos.contains(libro)) {
+                System.out.println(libro);
+            }
+        }
+    }
+}
